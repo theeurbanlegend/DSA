@@ -4,7 +4,7 @@ function maxScoreIndices(nums) {
   let leftZeros = 0;
   let onesSeen = 0;
   let maxScore = -Infinity;
-  let result = [];
+  let result: number[] = [];
 
   for (let i = 0; i <= n; i++) {
     const rightOnes = totalOnes - onesSeen;
@@ -25,8 +25,3 @@ function maxScoreIndices(nums) {
 
   return result;
 }
-
-console.log(arr.length);
-console.log(performance.now() / 1000);
-console.log(maxScoreIndices(arr));
-console.log(performance.now() / 1000);
