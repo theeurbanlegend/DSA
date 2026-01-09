@@ -1,25 +1,37 @@
 function maxSum(grid: number[][]): number {
-  let pt = 0;
+  const rows = grid.length;
+  const columns = grid[0].length;
+  const prefixArr = [];
   let max = 0;
-  const m = grid.length;
 
-  while (grid[0][pt + 2] != undefined) {
-    for (let i = 0; i < m; i++) {
-      if (Array.isArray(grid[i + 2])) {
-        let sum =
-          grid[i + 1][pt + 1] +
-          grid[i][pt] +
-          grid[i][pt + 1] +
-          grid[i][pt + 2] +
-          grid[i + 2][pt] +
-          grid[i + 2][pt + 1] +
-          grid[i + 2][pt + 2];
-        if (max < sum) {
-          max = sum;
-        }
-      }
-    }
-    pt++;
+  for (let i = 0; i < rows; i++) {
+    let sum = 0;
+    let arr = grid[i].map((el) => {
+      sum = el + sum;
+      return sum;
+    });
+    prefixArr.push(arr);
   }
-  return max;
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < columns; j++) {
+      if (Array.isArray(grid[i + 2])) {
+        if (grid[i][j + 2] !== undefined) {
+          let sum =
+            sumRange(j, j + 2, prefixArr[i]) +
+            grid[i + 1][j + 1] +
+            sumRange(j, j + 2, prefixArr[i + 2]);
+          max = Math.max(sum, max);
+        } else break;
+      } else return max;
+    }
+  }
+}
+
+function sumRange(left: number, right: number, arr: number[]): number {
+  if (left == 0) {
+    return arr[right];
+  } else {
+    return arr[right] - arr[left - 1];
+  }
 }
