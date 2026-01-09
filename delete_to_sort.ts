@@ -1,25 +1,17 @@
 function minDeletionSize(strs: string[]): number {
-  let cnt = 0;
-  const m = strs.length;
-  const n = strs[0].length;
+    let cnt = 0
 
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < m; j++) {
-      if (j + 2 < m) {
-        if (
-          !(strs[j][i] <= strs[j + 1][i]) ||
-          !(strs[j + 1][i] <= strs[j + 2][i])
-        ) {
-          cnt++;
-          break;
+    for (let i = 0; i < strs[0].length; i++) {
+        for (let j = 0; j < strs.length; j++) {
+            if (strs[j + 1] !== undefined) {
+                if (strs[j][i].charCodeAt(0) > strs[j + 1][i].charCodeAt(0)) {
+                    cnt++
+                    break;
+                }
+            } else break;
         }
-      } else if (j + 1 < m) {
-        if (!(strs[j][i] <= strs[j + 1][i])) {
-          cnt++;
-          break;
-        }
-      }
     }
-  }
-  return cnt;
-}
+
+
+    return cnt
+};
